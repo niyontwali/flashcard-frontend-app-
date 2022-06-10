@@ -1,45 +1,21 @@
-import { useState } from 'react';
+import { useQuery } from "@apollo/client"
 import FlashCard from "./FlashCard"
+import { GET_CARDS } from "../queries/cardQuery";
+import Spinner from "./Spinner";
 
-const DATA = [
-  {
-    id: 1,
-    question: 'What is React?',
-    answer: 'It is a javascript frontend library',
-    options: [
-      'Java library',
-      'Used to make backend',
-      'It is a tool for drawing',
-      'none of the above'
-    ]
-  },
-  {
-    id: 2,
-    question: 'What is GraphQL?',
-    answer: 'It is a framework used to build backend api and its flexible',
-    options: [
-      'Javascript library',
-      'Used to make backend api like node',
-      'It is a framework used to build backend api and its flexible '
-    ]
-  },
-  {
-    id: 3,
-    question: 'What is Next?',
-    answer: 'It is a react frontend development framework',
-    options: [
-      'It works the same as Figma',
-      'It is a react frontend development framework',
-      'Used for mobile designs'
-    ]
-  }
-]
 
 const FlashCardList = () => {
-  const [ flashcards, setFlashcards ] = useState(DATA)
+
+  const { loading, error, data } = useQuery(GET_CARDS)
+  
+  if (loading) return <Spinner />
+  if (error) return <p className="flex items-center justify-center text-xl text-red-600 font-bold">Something Went Wrong</p>
+
   return (
-    <div>
-      <FlashCard flashcards={flashcards}/>
+    <div className="card-grid">
+      {!loading && !error && data.allCards.map(card => {
+        return <FlashCard card={card} key={card.id} />
+      })}  
     </div>
   )
 }

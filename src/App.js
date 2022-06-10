@@ -5,17 +5,14 @@ import { ApolloProvider, ApolloClient, InMemoryCache} from
 import Header from "./components/Header";
 import Home from './pages/Home';
 import FlashCard from './pages/FlashCard';
+import Dashboard from './pages/Dashboard';
+import Card from './pages/Card';
 
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        clients: {
-          merge(existing, incoming) {
-            return incoming
-          }
-        },
-        projects: {
+        allCards: {
           merge(existing, incoming) {
             return incoming
           }
@@ -26,7 +23,7 @@ const cache = new InMemoryCache({
 })
 
 const client = new ApolloClient({
-  uri: 'https://proj-mgmt-system.herokuapp.com/graphql',
+  uri: 'https://flashcard-backend-app.herokuapp.com/graphql',
   cache
 })
 
@@ -39,7 +36,9 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/flashcard" element={<FlashCard />} />
+          <Route path="/flashcards" element={<FlashCard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/card/:id" element={<Card />} />
         </Routes>
       </Router>
     </ApolloProvider>
