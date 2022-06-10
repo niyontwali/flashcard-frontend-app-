@@ -8,7 +8,7 @@ const QuizCard = ({ card }) => {
           <h5 className="text-xl font-bold">{card.question}</h5>
         </div>
         <div className="mt-2">
-        <Link className="py-2 font-semibold px-4 rounded-lg bg-[#efd6d1] hover:bg-[#efaea3] " to={`/card/${card.id}`}>Deails</Link>
+        <Link className="py-2 font-semibold px-4 rounded-lg bg-[#efd6d1] hover:bg-[#efaea3] " to={`/card/${card.id}`}>View</Link>
         </div>
       </div>
       <div className="px-8 pb-8">
